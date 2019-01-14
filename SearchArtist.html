@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Artist</title>
+
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    .buttons > button {
+      background-color: rgb(240,237,234);
+      border-radius: 5px;
+    }
+
+    .buttons > input {
+      border-radius: 5px;
+    }
+
+    .links {
+      margin-top: 10px;
+    }
+
+    a {
+      padding: 5px;
+    }
+	
+	body {
+	  background-color: #e4f2f5e0;
+	}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="buttons">
+      <input id="artist-input" placeholder="Имя исполнителя" />
+      <button id="search-button">Найти</button>
+    </div>
+    <div id="links" class="links"></div>
+  </div>
+
+  <script>
+    const input = document.getElementById('artist-input');
+    const links = document.getElementById('links');
+    const yandex = 'https://music.yandex.ru/search?text=';
+    const youtube = 'https://music.youtube.com/search?q=';
+    const spotify = 'https://open.spotify.com/search/results/';
+    const deezer = 'https://www.deezer.com/search/';
+
+    const openInNewTab = (href, name) => {
+      const a = document.createElement('a');
+      Object.assign(a, {
+        innerHTML: name,
+        target: '_blank',
+        href,
+      }).click();
+      links.append(a);
+    };
+
+    const addArtist = () => {
+      while (links.firstChild) {
+        links.removeChild(links.firstChild);
+      }
+      openInNewTab(yandex + input.value, 'Yandex music');
+      openInNewTab(spotify + input.value, 'Spotify');
+      openInNewTab(deezer + input.value, 'Deezer');
+      openInNewTab(youtube + input.value, 'Youtube music');
+    };
+
+    const onKeyDown = (event) => {
+      if (event.code === 'Enter') {
+        addArtist();
+      }
+    };
+
+    const button = document.getElementById('search-button');
+    button.addEventListener('click', addArtist);
+    input.addEventListener('keydown', onKeyDown);
+  </script>
+</body>
+</html>
