@@ -3,7 +3,6 @@
     var t = this, e = window.fathom.q || [], h = {siteId: "", trackerUrl: ""}, n = {
         set: r, trackPageview: function e(t) {
             t = t || {};
-            if ("doNotTrack" in navigator && "1" === navigator.doNotTrack) return;
             if ("visibilityState" in document && "prerender" === document.visibilityState) return;
             if (null === document.body) return void document.addEventListener("DOMContentLoaded", function () {
                 e(t)
